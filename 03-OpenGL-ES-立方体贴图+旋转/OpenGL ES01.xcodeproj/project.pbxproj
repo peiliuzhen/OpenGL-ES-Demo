@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A39341824CD7D310028242F /* james.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0A39341724CD7D310028242F /* james.jpg */; };
+		0A39341624CC91D90028242F /* james.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 0A39341524CC91D90028242F /* james.jpeg */; };
 		0ABF1B1A24CB1A3B00C5D1B4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ABF1B1924CB1A3B00C5D1B4 /* AppDelegate.m */; };
 		0ABF1B1D24CB1A3B00C5D1B4 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ABF1B1C24CB1A3B00C5D1B4 /* SceneDelegate.m */; };
 		0ABF1B2024CB1A3B00C5D1B4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ABF1B1F24CB1A3B00C5D1B4 /* ViewController.m */; };
@@ -18,7 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0A39341724CD7D310028242F /* james.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = james.jpg; sourceTree = "<group>"; };
+		0A39341524CC91D90028242F /* james.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = james.jpeg; sourceTree = "<group>"; };
 		0ABF1B1524CB1A3B00C5D1B4 /* OpenGL ES01.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OpenGL ES01.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ABF1B1824CB1A3B00C5D1B4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0ABF1B1924CB1A3B00C5D1B4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -70,7 +70,7 @@
 				0ABF1B1E24CB1A3B00C5D1B4 /* ViewController.h */,
 				0ABF1B1F24CB1A3B00C5D1B4 /* ViewController.m */,
 				0ABF1B2124CB1A3B00C5D1B4 /* Main.storyboard */,
-				0A39341724CD7D310028242F /* james.jpg */,
+				0A39341524CC91D90028242F /* james.jpeg */,
 				0ABF1B2424CB1A3E00C5D1B4 /* Assets.xcassets */,
 				0ABF1B2624CB1A3E00C5D1B4 /* LaunchScreen.storyboard */,
 				0ABF1B2924CB1A3E00C5D1B4 /* Info.plist */,
@@ -136,7 +136,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A39341824CD7D310028242F /* james.jpg in Resources */,
+				0A39341624CC91D90028242F /* james.jpeg in Resources */,
 				0ABF1B2824CB1A3E00C5D1B4 /* LaunchScreen.storyboard in Resources */,
 				0ABF1B2524CB1A3E00C5D1B4 /* Assets.xcassets in Resources */,
 				0ABF1B2324CB1A3B00C5D1B4 /* Main.storyboard in Resources */,

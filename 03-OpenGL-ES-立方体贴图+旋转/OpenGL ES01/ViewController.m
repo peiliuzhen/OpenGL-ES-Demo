@@ -14,6 +14,9 @@
     
     EAGLContext *context;
     GLKBaseEffect *cEffect;
+    int _angle;
+    int _time;
+    bool _flag;
 }
 @end
 
@@ -21,6 +24,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    _time =3;
+    _flag=true;
     
     //1. OpenGL ES 相关初始化
     [self setUpConfig];
@@ -55,28 +61,6 @@
     GLKView *view =(GLKView *)self.view;
     view.context = context;
     
-    /*3.配置视图创建的渲染缓存区.
-    
-    (1). drawableColorFormat: 颜色缓存区格式.
-    简介:  OpenGL ES 有一个缓存区，它用以存储将在屏幕中显示的颜色。你可以使用其属性来设置缓冲区中的每个像素的颜色格式。
-    
-    GLKViewDrawableColorFormatRGBA8888 = 0,
-    默认.缓存区的每个像素的最小组成部分（RGBA）使用8个bit，（所以每个像素4个字节，4*8个bit）。
-    
-    GLKViewDrawableColorFormatRGB565,
-    如果你的APP允许更小范围的颜色，即可设置这个。会让你的APP消耗更小的资源（内存和处理时间）
-    
-    (2). drawableDepthFormat: 深度缓存区格式
-    
-    GLKViewDrawableDepthFormatNone = 0,意味着完全没有深度缓冲区
-    GLKViewDrawableDepthFormat16,
-    GLKViewDrawableDepthFormat24,
-    如果你要使用这个属性（一般用于3D游戏），你应该选择GLKViewDrawableDepthFormat16
-    或GLKViewDrawableDepthFormat24。这里的差别是使用GLKViewDrawableDepthFormat16
-    将消耗更少的资源
-    
-    */
-    
     //配置视图创建的渲染缓冲区
     view.drawableColorFormat = GLKViewDrawableColorFormatRGBA8888;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
@@ -94,14 +78,47 @@
     故而(0,0)是纹理图像的左下角, 点(1,1)是右上角.
     */
    GLfloat vertexData[] = {
+       -0.5f, -0.5f, -0.5f, 0.0f, 0.0f,
+       0.5f, -0.5f, -0.5f, 1.0f, 0.0f,
+       0.5f, 0.5f, -0.5f, 1.0f, 1.0f,
+       0.5f, 0.5f, -0.5f, 1.0f, 1.0f,
+       -0.5f, 0.5f, -0.5f, 0.0f, 1.0f,
+       -0.5f, -0.5f, -0.5f, 0.0f, 0.0f,
        
-       0.5, -0.5, 0.0f,    1.0f, 0.0f, //右下
-       0.5, 0.5,  0.0f,    1.0f, 1.0f, //右上
-       -0.5, 0.5, 0.0f,    0.0f, 1.0f, //左上
+       -0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
+       0.5f, -0.5f, 0.5f, 1.0f, 0.0f,
+       0.5f, 0.5f, 0.5f, 1.0f, 1.0f,
+       0.5f, 0.5f, 0.5f, 1.0f, 1.0f,
+       -0.5f, 0.5f, 0.5f, 0.0f, 1.0f,
+       -0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
        
-       0.5, -0.5, 0.0f,    1.0f, 0.0f, //右下
-       -0.5, 0.5, 0.0f,    0.0f, 1.0f, //左上
-       -0.5, -0.5, 0.0f,   0.0f, 0.0f, //左下
+       -0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
+       -0.5f, 0.5f, -0.5f, 1.0f, 1.0f,
+       -0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
+       -0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
+       -0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
+       -0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
+       
+       0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
+       0.5f, 0.5f, -0.5f, 1.0f, 1.0f,
+       0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
+       0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
+       0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
+       0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
+       
+       -0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
+       0.5f, -0.5f, -0.5f, 1.0f, 1.0f,
+       0.5f, -0.5f, 0.5f, 1.0f, 0.0f,
+       0.5f, -0.5f, 0.5f, 1.0f, 0.0f,
+       -0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
+       -0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
+       
+       -0.5f, 0.5f, -0.5f, 0.0f, 1.0f,
+       0.5f, 0.5f, -0.5f, 1.0f, 1.0f,
+       0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
+       0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
+       -0.5f, 0.5f, 0.5f, 0.0f, 0.0f,
+       -0.5f, 0.5f, -0.5f, 0.0f, 1.0f
    };
     
     /*
@@ -132,14 +149,12 @@
     glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 5, (GLfloat *)NULL + 3);
     
     
-    
-    
 }
 
 //3.
 -(void)setupTexture{
     //图片路径
-    NSString *filePath =[[NSBundle mainBundle]pathForResource:@"james" ofType:@"jpg"];
+    NSString *filePath =[[NSBundle mainBundle]pathForResource:@"james" ofType:@"jpeg"];
     
     //设置纹理参数
     //纹理坐标原点是左下角，但图片显示原点是左上角
@@ -152,24 +167,51 @@
     cEffect.texture2d0.enabled=GL_TRUE;
     cEffect.texture2d0.name=textureInfo.name;
     
+    // 透视投影矩阵
     CGFloat aspect = fabs(self.view.bounds.size.width / self.view.bounds.size.height);
-    GLKMatrix4 projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(50.0), aspect, 0.1, 100.0);
+    GLKMatrix4 projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(55), aspect, 0.1, 100.0);
     cEffect.transform.projectionMatrix = projectionMatrix;
         
-    GLKMatrix4 modelviewMatrix = GLKMatrix4Translate(GLKMatrix4Identity, 0, 0, -5.0);
+    GLKMatrix4 modelviewMatrix = GLKMatrix4Translate(GLKMatrix4Identity, 0, 0, -4.0);
     cEffect.transform.modelviewMatrix = modelviewMatrix;
     
 }
 
+//4.
+-(void)updateEffect{
+
+    /*
+     //立方体旋转先快后慢
+    if (_time < 100 ||_time >0){
+        if (_flag){
+            _time++;
+        }else{
+            _time--;
+        }
+    }
+    if (_time == 100 || _time == 0){
+        _flag = !_flag;
+    }
+     */
+        
+    _angle =(_angle +_time)%360;
+    GLKMatrix4 modelViewMatrix =GLKMatrix4Translate(GLKMatrix4Identity, 0, 0, -4.0);
+    modelViewMatrix =GLKMatrix4Rotate(modelViewMatrix, GLKMathDegreesToRadians(_angle), 0.5, 0.5, 0.5);
+    cEffect.transform.modelviewMatrix =modelViewMatrix;
+}
+
 #pragma mark --GLKViewDelegate
 -(void)glkView:(GLKView *)view drawInRect:(CGRect)rect{
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
+    glEnable(GL_DEPTH_TEST);
+    
+    //旋转
+    [self updateEffect];
     
     [cEffect prepareToDraw];
     
-    glDrawArrays(GL_TRIANGLES, 0, 6);
-    
-    
+    glDrawArrays(GL_TRIANGLES, 0, 48);
     
 }
 
